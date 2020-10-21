@@ -1,20 +1,24 @@
 package com.jkudacity.lesson4final.service;
 
+import com.jkudacity.lesson4final.mapper.MessageMapper;
 import com.jkudacity.lesson4final.model.ChatForm;
 import com.jkudacity.lesson4final.model.ChatMessage;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MassageService {
-    List<ChatMessage> chatMessages;
+    MessageMapper messageMapper;
+
+    public MassageService(MessageMapper messageMapper) {
+        this.messageMapper = messageMapper;
+    }
 
     @PostConstruct
     public void postConstruct() {
-        this.chatMessages = new ArrayList<>();
+        System.out.println("Create MassageService");
     }
 
     public void addMessage(ChatForm chatForm) {
@@ -31,10 +35,10 @@ public class MassageService {
             case "Say":
                 chatMessage.setMessageText(chatForm.getMessageText());
         }
-        chatMessages.add(chatMessage);
+        messageMapper.insert(chatMessage);
     }
 
     public List<ChatMessage> getChatMessages() {
-        return new ArrayList<>(this.chatMessages);
+        return messageMapper.getAllMessages();
     }
 }
