@@ -5,7 +5,10 @@
     <title>Chat</title>
 </head>
 <body>
-    <form action="#" th:action="@{'/chat'}" th:object="${chatForm}" method="POST">
+    <form action="#" th:action="@{'/logout'}" method="POST">
+        <input type="submit" value="Logout"/>
+    </form>
+<form action="#" th:action="@{'/chat'}" th:object="${chatForm}" method="POST">
         <label for="messageText">Message Text:</label>
         <input id="messageText" type="text" th:field="*{messageText}">
         <label for="messageType">Message Type: </label>
