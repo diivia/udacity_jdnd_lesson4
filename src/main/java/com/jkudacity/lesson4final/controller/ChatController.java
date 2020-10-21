@@ -3,6 +3,7 @@ package com.jkudacity.lesson4final.controller;
 import com.jkudacity.lesson4final.model.ChatForm;
 import com.jkudacity.lesson4final.model.ChatMessage;
 import com.jkudacity.lesson4final.service.MassageService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,8 @@ public class ChatController {
     }
 
     @PostMapping
-    public String addMessage(@ModelAttribute("chatForm") ChatForm chatForm, Model model) {
+    public String addMessage(Authentication authentication, @ModelAttribute("chatForm") ChatForm chatForm, Model model) {
+        chatForm.setUserName(authentication.getName());
         massageService.addMessage(chatForm);
         model.addAttribute("messages", massageService.getChatMessages());
         chatForm.setMessageText("");
